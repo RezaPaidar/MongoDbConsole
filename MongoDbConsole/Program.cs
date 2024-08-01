@@ -7,7 +7,7 @@ var mongodbUrl = "mongodb://localhost:27017";
 var client = new MongoClient(mongodbUrl);
 var database = client.GetDatabase("bank");
 
-var accounts = database.GetCollection<Accounts>("account");
+//var accounts = database.GetCollection<Accounts>("account");
 
 
 //var document = new Accounts
@@ -44,10 +44,20 @@ var accounts = database.GetCollection<Accounts>("account");
 
 //Console.WriteLine(account.AccountHolder);
 
-var accs = accounts.Find(x=>x.AccountType == "Checking")
-    .SortByDescending(x=>x.Balance).Limit(3).ToList();
+//var accs = accounts.Find(x=>x.AccountType == "Checking")
+//    .SortByDescending(x=>x.Balance).Limit(3).ToList();
 
-foreach (var acc in accs)
-{
-    Console.WriteLine(acc.AccountHolder);
-}
+//foreach (var acc in accs)
+//{
+//    Console.WriteLine(acc.AccountHolder);
+//}
+var accounts = database.GetCollection<BsonDocument>("account");
+var filter = Builders<BsonDocument>
+    .Filter
+    .Eq("_id", new ObjectId("66ab5fd5d11b9da74a5374cf"));
+
+//var filter1 = Builders<Accounts>.Filter.Eq("_id", new ObjectId("66ab5fd5d11b9da74a5374cf"));
+
+var documnet = accounts.Find(filter).FirstOrDefault();
+
+Console.WriteLine(documnet);
