@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 
-var mongodbUrl = "mongodb://<username>:<password>@<hostname>:<port>/<database>?<options>";
+var mongodbUrl = "mongodb://localhost:27017";
 
 var client = new MongoClient(mongodbUrl);
 var dbList = client.ListDatabaseNames().ToList();
