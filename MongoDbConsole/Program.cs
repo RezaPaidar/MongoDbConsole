@@ -1,22 +1,21 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDbConsole.Model;
 
 var mongodbUrl = "mongodb://localhost:27017";
 
 var client = new MongoClient(mongodbUrl);
-var dbList = client.ListDatabaseNames().ToList();
+var database = client.GetDatabase("bank");
 
-Console.WriteLine("This list of database on this server is: ");
-foreach (var db in dbList)
+var accounts = database.GetCollection<Accounts>("account");
+
+
+var document = new Accounts
 {
-    Console.WriteLine(db);
-}
-
-
-var document = new BsonDocument
-{
-    {"accountId","MD123"},
-    {"acountHolder","Reza Paidar"},
-    {"acountType","checking"},
-    {"balance","50352434"}
+    AccountId = "MD123",
+    AccountHolder = "Reza Paidar",
+    AccountType = "checking",
+    Balance = 50352434,
 };
+
+accounts.InsertOne(document);

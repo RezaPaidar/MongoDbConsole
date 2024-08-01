@@ -25,7 +25,7 @@ namespace MongoDbConsole.Model
         public string AccountType { get; set; } = string.Empty;
 
         [BsonElement("balance")]
-        public string Balance { get; set; }
+        public decimal Balance { get; set; }
 
         [BsonElement("transfer_complete")]
         public string[] TransfersCompleted { get; set; } = Array.Empty<string>();
